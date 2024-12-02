@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ui version="4.0">
+    <class>Nav</class>
+    <widget class="QWidget" name="Nav">
+        <property name="geometry">
+            <rect>
+                <x>100</x>
+                <y>100</y>
+                <width>200</width>
+                <height>800</height>
+            </rect>
+        </property>
+        <widget class="QFrame" name="navFrame">
+            <widget class="QPushButton" name="welcome">
+                <property name="text">
+                    <string>Welcome</string>
+                </property>
+                <property name="geometry">
+                    <rect>
+                        <x>0</x>    
+                        <y>65</y>   
+                        <width>200</width>  
+                        <height>50</height> 
+                    </rect>
+                </property>
+            </widget>
+            <widget class="QPushButton" name="locale">
+                <property name="text">
+                    <string>Locale</string>
+                </property>
+                <property name="geometry">
+                    <rect>
+                        <x>0</x>    
+                        <y>165</y>   
+                        <width>200</width>  
+                        <height>50</height> 
+                    </rect>
+                </property>
+            </widget>
+            <widget class="QPushButton" name="diskSetup">
+                <property name="text">
+                    <string>Disk Setup</string>
+                </property>
+                <property name="geometry">
+                    <rect>
+                        <x>0</x>    
+                        <y>265</y>   
+                        <width>200</width>  
+                        <height>50</height> 
+                    </rect>
+                </property>
+            </widget>
+            <widget class="QPushButton" name="users">
+                <property name="text">
+                    <string>Users</string>
+                </property>
+                <property name="geometry">
+                    <rect>
+                        <x>0</x>    
+                        <y>365</y>   
+                        <width>200</width>  
+                        <height>50</height> 
+                    </rect>
+                </property>
+            </widget>
+            <widget class="QPushButton" name="network">
+                <property name="text">
+                    <string>Network</string>
+                </property>
+                <property name="geometry">
+                    <rect>
+                        <x>0</x>    
+                        <y>465</y>   
+                        <width>200</width>  
+                        <height>50</height> 
+                    </rect>
+                </property>
+            </widget>
+            <widget class="QPushButton" name="packages">
+                <property name="text">
+                    <string>Packages</string>
+                </property>
+                <property name="geometry">
+                    <rect>
+                        <x>0</x>    
+                        <y>565</y>   
+                        <width>200</width>  
+                        <height>50</height> 
+                    </rect>
+                </property>
+            </widget>
+            <widget class="QPushButton" name="install">
+                <property name="text">
+                    <string>Install</string>
+                </property>
+                <property name="geometry">
+                    <rect>
+                        <x>0</x>    
+                        <y>665</y>   
+                        <width>200</width>  
+                        <height>50</height> 
+                    </rect>
+                </property>  
+            </widget>
+        </widget>              
+    </widget>
+</ui>
+
