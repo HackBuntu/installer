@@ -21,25 +21,51 @@ void loadWidgetStyleSheet(QWidget *widget, const QString &fileName) {
 }
 
 void system_exec(const std::string& cmd) {
-    int return_code = system(cmd.c_str());
+    QString qCmd = QString::fromStdString("bash -c \"" + cmd + "\"");
+    QProcess process;
+    QStringList arguments = QProcess::splitCommand(qCmd);
+    if (arguments.isEmpty()) {
+        qCritical() << "Invalid command:" << qCmd;
+        std::exit(EXIT_FAILURE);
+    }
 
-    if (return_code != 0) {
-        std::cerr << "Failed to execute command: " << cmd << std::endl;
+    QString program = arguments.takeFirst(); 
+    process.start(program, arguments);
+
+    if (!process.waitForFinished()) {
+        qCritical() << "Failed to execute command:" << qCmd;
+        qCritical() << "Error:" << process.errorString();
+        std::exit(EXIT_FAILURE);
+    }
+
+    if (process.exitStatus() != QProcess::NormalExit || process.exitCode() != 0) {
+        qCritical() << "Command failed with exit code:" << process.exitCode();
         std::exit(EXIT_FAILURE);
     }
 }
 
 std::string exec(const std::string& cmd) {
-    std::array<char, 128> buffer;
-    std::string result;
-    std::unique_ptr<FILE, int (*)(FILE*)> pipe(popen(cmd.c_str(), "r"), pclose);
-    if (!pipe) {
-        throw std::runtime_error("popen() failed!");
+    QString qCmd = QString::fromStdString("bash -c \"" + cmd + "\"");
+    QProcess process;
+    QStringList arguments = QProcess::splitCommand(qCmd);
+    if (arguments.isEmpty()) {
+        throw std::runtime_error("Invalid command: " + qCmd.toStdString());
     }
-    while (fgets(buffer.data(), buffer.size(), pipe.get()) != nullptr) {
-        result += buffer.data();
+
+    QString program = arguments.takeFirst();
+    process.start(program, arguments);
+
+    process.waitForFinished();
+
+    if (process.exitStatus() != QProcess::NormalExit) {
+        throw std::runtime_error("Command crashed: " + qCmd.toStdString());
     }
-    return result;
+
+    if (process.exitCode() != 0) {
+        throw std::runtime_error("Command error: " + process.readAllStandardError().toStdString());
+    }
+
+    return process.readAllStandardOutput().toStdString();
 }
 
 std::vector<std::string> list_items(const std::string& input_text) {
